@@ -1,68 +1,404 @@
+/* src/index.css */
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #ffffff;
+  color: #111827;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  background-color: #ffffff;
+}
+
+.app-root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem 3rem;
+  background-color: #ffffff;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.app-card {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2.5rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.step h1,
+.step h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.step-intro p {
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+.step-question {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.progress {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.helper {
+  margin-top: 0.25rem;
+  margin-bottom: 1.5rem;
+  color: #6b7280;
+}
+
+.primary-btn,
+.secondary-btn {
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border: none;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-size: 0.95rem;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.primary-btn {
+  background: #020144;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #020144;
+}
+
+.secondary-btn {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.secondary-btn:hover {
+  background: #d1d5db;
+}
+
+.step-lifestyle p {
+  color: #4b5563;
+}
+
+.lifestyle-grid {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.75rem;
+}
+
+.lifestyle-card {
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.85rem 0.9rem;
+  background: #f9fafb;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.lifestyle-card-selected {
+  border-color: #020144;
+  box-shadow: 0 0 0 1px #02014433;
+  background: #eef0ff;
+}
+
+.lifestyle-icon {
+  font-size: 1.5rem;
+}
+
+.lifestyle-text h3 {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
+}
+
+.lifestyle-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.methods-grid {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.method-card {
+  border-radius: 1rem;
+  border: 2px solid #e5e7eb;
+  padding: 1rem 1rem 0.9rem;
+  background: #f9fafb;
+  position: relative;
+  height: 100%;
+  min-height: 360px;
+  /* ensures consistent height across cards */
+}
+
+.method-card-recommended {
+  border-color: #020144;
+  box-shadow: 0 0 0 2px #02014455;
+}
+
+.method-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.method-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.method-type-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.method-tagline {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.method-notes {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.recommended-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #020144;
+}
+
+.alert {
+  background: #eff6ff;
+  border-radius: 0.85rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.85rem;
+  color: #020144;
+}
+
+.disclaimer {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  max-width: 1400px;
+  text-align: center;
+}
+
+.results-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+  /* mobile: 1 per row */
+}
+
+@media (min-width: 768px) {
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* md: 2 per row */
   }
-  a:hover {
-    color: #747bff;
+}
+
+@media (min-width: 992px) {
+  .results-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* lg: 3 per row */
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+.question-progress-container {
+  margin-bottom: 1.5rem;
+}
+
+.question-progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background-color: #e5e7eb;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.question-progress-fill {
+  height: 100%;
+  background-color: #020144;
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.global-question-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #e5e7eb;
+  z-index: 1000;
+}
+
+.global-question-progress-fill {
+  height: 100%;
+  background-color: #020144;
+  transition: width 0.25s ease;
+}
+
+/* Fade in / fade out animations for questions */
+.fade-in {
+  animation: fadeIn 1s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* Updated .question-content */
+.question-content {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Updated .button-row */
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20%;
+  margin-top: 1.5rem;
+}
+
+/* Existing or merged .number-question-controls */
+.number-question-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.age-slider-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.number-display-large {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.age-slider {
+  width: 100%;
+  accent-color: #020144;
+}
+
+/* Slider track (WebKit) */
+.age-slider::-webkit-slider-runnable-track {
+  background: #02014433;
+  height: 6px;
+  border-radius: 999px;
+}
+
+/* Slider thumb (WebKit) */
+.age-slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #020144;
+  border: 2px solid #ffffff;
+  margin-top: -6px;
+}
+
+/* Firefox track */
+.age-slider::-moz-range-track {
+  background: #02014433;
+  height: 6px;
+  border-radius: 999px;
+}
+
+/* Firefox thumb */
+.age-slider::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #020144;
+  border: 2px solid #ffffff;
+}
+
+/* === Custom Colors for Recommended Badge, Learn More Button, and Outline === */
+
+/* Override Bootstrap primary background (Recommended badge) */
+.bg-primary {
+  background-color: #020144 !important;
+}
+
+/* Override outline primary button (Learn more button) */
+.btn-outline-primary {
+  color: #020144 !important;
+  border-color: #020144 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #020144 !important;
+  color: #ffffff !important;
+  border-color: #020144 !important;
+}
+
+/* If any card outlines or borders use .border-primary */
+.border-primary {
+  border-color: #020144 !important;
 }
