@@ -4,9 +4,11 @@ import type { Method } from "./ResultsScreen";
 interface MethodCardProps {
   method: Method;
   isRecommended: boolean;
+  onSelect: () => void;
+  isSelected: boolean;
 }
 
-export function MethodCard({ method, isRecommended }: MethodCardProps) {
+export function MethodCard({ method, isRecommended, onSelect, isSelected }: MethodCardProps) {
   const { icon, name, type, pros, cons } = method;
 
   return (
@@ -82,8 +84,9 @@ export function MethodCard({ method, isRecommended }: MethodCardProps) {
         <button
           type="button"
           className="btn btn-outline-primary btn-sm mt-auto w-100"
+          onClick={onSelect}
         >
-          Learn more
+          {isSelected ? "Show less" : "Learn more"}
         </button>
       </div>
     </div>

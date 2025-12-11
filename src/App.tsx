@@ -54,8 +54,8 @@ const QUESTIONS: Question[] = [
     kind: "yesno"
   },
   {
-    id: "migraineWithAura",
-    prompt: "Do you get migraines with aura?",
+    id: "clottingHistory",
+    prompt: "Have you ever had a blood clot, stroke, or heart attack?",
     kind: "yesno"
   },
   {
@@ -64,8 +64,9 @@ const QUESTIONS: Question[] = [
     kind: "yesno"
   },
   {
-    id: "clotting",
-    prompt: "Have you ever had a blood clot, stroke, or heart attack?",
+    id: "migraineWithAura",
+    prompt:
+      "Do you get migraines with aura (flashing lights, zig-zag lines, or vision changes before the headache)?",
     kind: "yesno"
   },
   {
@@ -74,28 +75,28 @@ const QUESTIONS: Question[] = [
     kind: "yesno"
   },
   {
-    id: "postpartum6Weeks",
-    prompt: "Are you less than 6 weeks postpartum?",
+    id: "breastfeeding",
+    prompt: "Are you currently breastfeeding?",
     kind: "yesno"
   },
   {
-    id: "dailyPillOk",
-    prompt: "Are you okay taking a pill every day around the same time?",
+    id: "breastCancerHistory",
+    prompt: "Have you ever been diagnosed with breast cancer?",
     kind: "yesno"
   },
   {
-    id: "hateDailyPills",
-    prompt: "Would you rather not think about birth control every day?",
-    kind: "yesno"
-  },
-  {
-    id: "preferLessHormones",
-    prompt: "Would you prefer a method with fewer hormones if possible?",
+    id: "dailyPillStrict",
+    prompt: "Can you reliably take a pill at around the same time every day?",
     kind: "yesno"
   },
   {
     id: "preferNoHormones",
-    prompt: "Would you prefer a non-hormonal method if it’s a good fit?",
+    prompt: "Is using a non-hormonal birth control method a high priority for you?",
+    kind: "yesno"
+  },
+  {
+    id: "pregnantSoon",
+    prompt: "Are you hoping to become pregnant in the next 1–2 years?",
     kind: "yesno"
   }
 ];
@@ -111,22 +112,42 @@ type Answers = {
 const METHODS: Method[] = [
   {
     id: "combinedPill",
-    name: "Pill (Combination)",
+    name: "Pill (Combined Oral Contraceptives (COC))",
     type: "Estrogen + Progestin",
     tagline: "Daily",
     notes: "Must be taken daily at a consistent time.",
     icon: combinedPill,
+    efficacyPerfectUse: "99%",
+    efficacyTypicalUse: "93%",
+    hormones: "Estrogen + Progestin",
+    frequency: "Daily",
+    mechanism:
+      "Stopping ovulation, thickening cervical mucus, and thinning the uterine lining",
     pros: [
-      "No interruption of sex",
-      "User control over when or if you want your period",
-      "Can get pregnant soon after stopping",
-      "Lighter or more regular menstrual cycles",
-      "Reduces cramping"
+      "Provides flexibility in managing or suppressing periods",
+      "Fertility typically returns quickly after stopping",
+      "Can lead to lighter, more regular cycles",
+      "Helps decrease menstrual cramps"
     ],
     cons: [
-      "Estrogen — increased blood clot risk",
-      "Less effective if not taken consistently at the same time",
-      "Should not take if history of breast cancer"
+      "Daily adherence required",
+      "Efficacy decreases when not taken regularly at the set time"
+    ],
+    shouldAvoid: [
+      "Estrogen-related contraindications",
+      "History of Breast Cancer"
+    ],
+    sideEffects: [
+      "Headaches",
+      "Nausea",
+      "Sore breasts",
+      "Bloating",
+      "Spotting or bleeding between periods"
+    ],
+    bestFor: [
+      "Want cycle control",
+      "Prefer daily routines",
+      "Can reliably take a daily pill"
     ]
   },
   {
@@ -134,16 +155,39 @@ const METHODS: Method[] = [
     name: "Pill (Progestin-only)",
     type: "Progestin",
     tagline: "Daily",
-    notes: "Timing is more strict than combination pills.",
+    notes: "",
     icon: progestinPill,
+    efficacyPerfectUse: "99%",
+    efficacyTypicalUse: "93%",
+    hormones: "Progestin",
+    frequency: "Daily",
+    mechanism: "Thickens cervical mucus and stopping ovulation",
     pros: [
-      "Safe while breastfeeding",
-      "Contains no estrogen"
+      "Safe to use while breastfeeding",
+      "Estrogen-free option"
     ],
     cons: [
-      "Stricter timing required",
-      "Less effective than combination pill",
-      "Should not take if history of breast cancer"
+      "Requires very strict daily timing for effectiveness",
+      "Slightly lower typical-use efficacy compared to the combination pill",
+      "Not recommended for patients with a history of breast cancer"
+    ],
+    shouldAvoid: [
+      "History of breast cancer",
+      "Cannot commit to consistent, same-time daily dosing",
+      "taking medications that interfere with progestin effectiveness"
+    ],
+    sideEffects: [
+      "Breast tenderness.",
+      "Nausea.",
+      "Headaches.",
+      "Weight changes.",
+      "Acne.",
+      "Increased hair growth"
+    ],
+    bestFor: [
+      "Prefer or require an estrogen-free contraceptive",
+      "Are breastfeeding",
+      "Can reliably take the pill at the same time every day"
     ]
   },
   {
@@ -151,20 +195,39 @@ const METHODS: Method[] = [
     name: "Patch",
     type: "Estrogen + Progestin",
     tagline: "Weekly",
-    notes: "Changed once weekly; applied to skin.",
+    notes: "",
     icon: patch,
+    efficacyPerfectUse: "99%",
+    efficacyTypicalUse: "94%",
+    hormones: "Estrogen + Progestin",
+    frequency: "Weekly",
+    mechanism: "Skin absorbs hormones which prevent ovulation",
     pros: [
-      "Reversible — fertility returns quickly",
-      "More convenient (once weekly)",
-      "Consistent hormone dosage",
+      "Only needs to be changed once a week, making it more convenient than daily methods",
+      "Provides consistent hormone dosing",
       "May improve acne",
-      "Improves menstrual cramps"
+      "May reduce menstrual cramps and make periods more regular"
     ],
     cons: [
-      "Estrogen — increased blood clot risk",
-      "Less effective for BMI ≥ 30 or weight > 198 lbs",
-      "Skin irritation possible",
-      "No STD prevention"
+      "May cause mild skin irritation at the patch site",
+      "Visible on the skin, which some patients may not prefer",
+      "Slightly less effective in patients where BMI >= 30 / LBS > 198",
+      "Must be replaced on the same day each week to maintain effectiveness"
+    ],
+    shouldAvoid: [
+      "Estrogen-related contraindications",
+      "History of Breast Cancer"
+    ],
+    sideEffects: [
+      "Nausea",
+      "Irregular bleeding",
+      "Sore breasts",
+      "Headache",
+      "Mood changes"
+    ],
+    bestFor: [
+      "Want a low-maintenance method that doesn’t require daily action",
+      "Prefer a method with consistent, steady hormone delivery"
     ]
   },
   {
@@ -172,72 +235,163 @@ const METHODS: Method[] = [
     name: "Vaginal Ring (NuvaRing)",
     type: "Estrogen + Progestin",
     tagline: "Monthly",
-    notes: "Insert monthly; widely covered by insurance.",
+    notes: "",
     icon: nuvaring,
+    efficacyPerfectUse: "99%",
+    efficacyTypicalUse: "98%",
+    hormones: "Estrogen + Progestin",
+    frequency: "Monthly",
+    mechanism: "Delivers hormones vaginally to block ovulation and thicken cervical mucus",
     pros: [
-      "New ring every month",
-      "Most private insurance covers NuvaRing",
-      "Generic version available"
+      "Only replaced once per month",
+      "Generally covered by most private insurance",
+      "Generic versions available (cheaper)"
     ],
     cons: [
-      "Estrogen — increased blood clot risk",
       "Possible vaginal discomfort",
-      "Mood changes may occur"
+      "Mood changes (less commonly reported with the Annovera ring)"
+    ],
+    shouldAvoid: [
+      "Estrogen-related contraindications",
+      "History of Breast Cancer"
+    ],
+    sideEffects: [
+      "Breast tenderness",
+      "Headaches",
+      "Weight gain",
+      "Nausea and vomiting",
+      "Depression or mood changes",
+      "Spotting",
+      "Increased vaginal discharge",
+      "Acne",
+      "Decreased sex drive"
+    ],
+    bestFor: [
+      "Want a low-maintenance hormonal method (monthly instead of daily/weekly)",
+      "Prefer a discreet, user-controlled option",
+      "Are comfortable inserting and removing the ring themselves"
     ]
   },
   {
     id: "annovera",
     name: "Vaginal Ring (Annovera)",
     type: "Estrogen + Progestin",
-    tagline: "yearly",
-    notes: "One ring reused for 13 cycles (~1 year).",
+    tagline: "Monthly/Yearly",
+    notes: "",
     icon: annovera,
+    efficacyPerfectUse: "99%",
+    efficacyTypicalUse: "97%",
+    hormones: "Estrogen + Progestin",
+    frequency: "Monthly/Yearly",
+    mechanism: "Delivers hormones vaginally to block ovulation and thicken cervical mucus",
     pros: [
-      "One ring reused for up to 1 year",
-      "Once-monthly maintenance"
+      "Use the same ring for up to 13 menstrual cycles (~1 year)"
     ],
     cons: [
-      "Estrogen — increased blood clot risk",
       "Possible vaginal discomfort",
-      "More expensive — no generic available"
+      "More expensive, as a generic version is not yet available"
+    ],
+    shouldAvoid: [
+      "Estrogen-related contraindications",
+      "History of Breast Cancer"
+    ],
+    sideEffects: [
+      "Breast tenderness",
+      "Headaches",
+      "Weight gain",
+      "Nausea and vomiting",
+      "Depression or mood changes",
+      "Spotting",
+      "Increased vaginal discharge",
+      "Acne",
+      "Decreased sex drive"
+    ],
+    bestFor: [
+      "Prefer fewer pharmacy visits (once a year)",
+      "Prefer a method that’s more environmentally friendly (one device per year)",
+      "Prefer a discreet, user-controlled option",
+      "Are comfortable inserting and removing the ring themselves"
     ]
   },
   {
     id: "shot",
-    name: "Birth Control Shot",
+    name: "Birth Control Shot (Depo-subQ Provera 104)",
     type: "Progestin",
-    tagline: "12 weeks/3 months",
-    notes: "Very effective; requires returning for scheduled injections.",
+    tagline: "12 weeks / 3 months",
+    notes: "",
     icon: shot,
+    efficacyPerfectUse: "99%",
+    efficacyTypicalUse: "96%",
+    hormones: "Progestin",
+    frequency: "12 weeks / 3 months",
+    mechanism: "Prevents ovulation, thickens cervical mucus, and thins the uterine lining",
     pros: [
-      "Does not interfere with sexual activity",
-      "No need to take daily",
-      "Long-lasting per dose"
+      "Highly effective when injections are on schedule",
+      "It doesn’t interfere with sexual activity",
+      "Estrogen-free option"
     ],
     cons: [
-      "Side effects possible",
-      "Delay in return to fertility after stopping",
-      "Requires receiving a shot every 12 weeks"
+      "Delay in getting pregnant (10 months on average) to conceive after your last injection",
+      "Potential for weight gain"
+    ],
+    shouldAvoid: [
+      "History of breast cancer",
+      "Unexplained vaginal bleeding",
+      "Severe liver disease"
+    ],
+    sideEffects: [
+      "Bloating",
+      "Bone density loss",
+      "Depression",
+      "Headaches and dizziness",
+      "Irregular menstrual periods or no periods at all",
+      "Nervousness",
+      "Weight gain"
+    ],
+    bestFor: [
+      "Want a long-acting method without daily or weekly maintenance",
+      "Prefer an estrogen-free hormonal option",
+      "Do not plan to become pregnant immediately after discontinuation"
     ]
   },
   {
     id: "diaphragm",
-    name: "Diaphragm",
+    name: "Vaginal Diaphragm",
     type: "Non Hormonal",
     tagline: "~2 years",
-    notes: "Used with spermicide; replaced every ~2 years.",
+    notes: "",
     icon: diaphragm,
+    efficacyPerfectUse: "94%",
+    efficacyTypicalUse: "87%",
+    hormones: "Non Hormonal",
+    frequency: "~2 years",
+    mechanism: "prevent pregnancy by blocking sperm from reaching uterus",
     pros: [
-      "No hormones",
+      "Not hormonal",
       "Reusable",
       "No systemic side effects",
-      "Low maintenance when not sexually active"
+      "Low maintenance, only used when sexually active"
     ],
     cons: [
-      "Lower efficacy than hormonal methods",
-      "May feel uncomfortable during sex",
-      "Can become dislodged",
-      "May increase risk of urinary tract infections"
+      "Lower efficacy compared to hormonal methods",
+      "Some users may experience discomfort during intercourse",
+      "Can become dislodged during sexual activity",
+      "Increase risk of urinary tract infections"
+    ],
+    shouldAvoid: [
+      "History of frequent UTIs",
+      "Allergies to silicone or spermicide",
+      "Anatomical issues that make proper placement difficult"
+    ],
+    sideEffects: [
+      "Vaginal irritation from spermicide",
+      "Increased UTI risk"
+    ],
+    bestFor: [
+      "Want a non-hormonal, on-demand contraceptive method",
+      "Do not want systemic side effects",
+      "Are comfortable inserting and removing the diaphragm",
+      "Understand and accept the lower typical-use efficacy"
     ]
   }
 ];
@@ -285,68 +439,87 @@ function App() {
 
   // ---- Recommendation logic based on answers ----
 
-  const getNumberAnswer = (id: string): number | undefined => {
-    const v = answers[id];
-    return typeof v === "number" ? v : undefined;
-  };
+const getNumberAnswer = (id: string): number | undefined => {
+  const v = answers[id];
+  return typeof v === "number" ? v : undefined;
+};
 
-  const isYes = (id: string): boolean => answers[id] === "yes";
+const isYes = (id: string): boolean => answers[id] === "yes";
 
-  const age = getNumberAnswer("age");
+const age = getNumberAnswer("age");
 
-  const estrogenContraindicated =
-    isYes("clotting") ||
-    isYes("migraineWithAura") ||
-    isYes("hypertension") ||
-    isYes("bmiHigh") ||
-    isYes("postpartum6Weeks") ||
-    (typeof age === "number" && age >= 35 && isYes("smoking"));
+const estrogenContraindicated =
+  isYes("clottingHistory") ||
+  isYes("migraineWithAura") ||
+  isYes("hypertension") ||
+  isYes("bmiHigh") ||
+  isYes("breastCancerHistory") ||
+  (typeof age === "number" && age >= 35 && isYes("smoking"));
 
-  const prefersNoHormones = isYes("preferNoHormones");
-  const prefersLessHormones = isYes("preferLessHormones");
-  const hatesDailyPills = isYes("hateDailyPills");
-  const okWithDailyPill = isYes("dailyPillOk");
+const prefersNoHormones = isYes("preferNoHormones");
+const canDoStrictDailyPill = isYes("dailyPillStrict");
+const breastfeeding = isYes("breastfeeding");
+const breastCancerHistory = isYes("breastCancerHistory");
+const pregnantSoon = isYes("pregnantSoon");
 
-  const recommendedMethodIds: Set<MethodId> = (() => {
-    const ids = new Set<MethodId>();
+const recommendedMethodIds: Set<MethodId> = (() => {
+  const ids = new Set<MethodId>();
 
-    METHODS.forEach((m) => {
-      const methodHasEstrogen =
-        m.type === "Estrogen" || m.type === "Estrogen + Progestin";
+  METHODS.forEach((m) => {
+    const methodHasEstrogen =
+      m.type === "Estrogen" || m.type === "Estrogen + Progestin";
 
-      // Avoid any method that contains estrogen if contraindicated
-      if (estrogenContraindicated && methodHasEstrogen) {
-        return;
-      }
-
-      ids.add(m.id);
-    });
-
-    if (hatesDailyPills) {
-      ids.delete("combinedPill");
-      ids.delete("progestinPill");
+    // Avoid any method that contains estrogen if contraindicated
+    if (estrogenContraindicated && methodHasEstrogen) {
+      return;
     }
 
-    if (prefersNoHormones) {
-      return new Set<MethodId>(["diaphragm"]);
-    }
+    ids.add(m.id);
+  });
 
-    if (prefersLessHormones) {
-      ids.delete("combinedPill");
-      ids.delete("patch");
-      ids.delete("nuvaring");
-      ids.delete("annovera");
-    }
+  // If patient strongly prefers non-hormonal, only keep diaphragm
+  if (prefersNoHormones) {
+    return new Set<MethodId>(["diaphragm"]);
+  }
 
-    // If they like daily pills and nothing else has filtered them out,
-    // make sure pills stay in the set (this is mostly illustrative).
-    if (okWithDailyPill && !hatesDailyPills) {
-      ids.add("combinedPill");
-      ids.add("progestinPill");
-    }
+  // Breast cancer history: avoid all hormonal methods
+  if (breastCancerHistory) {
+    ids.delete("combinedPill");
+    ids.delete("progestinPill");
+    ids.delete("patch");
+    ids.delete("nuvaring");
+    ids.delete("annovera");
+    ids.delete("shot");
+  }
 
-    return ids;
-  })();
+  // If breastfeeding, steer away from estrogen-containing methods
+  if (breastfeeding) {
+    ids.delete("combinedPill");
+    ids.delete("patch");
+    ids.delete("nuvaring");
+    ids.delete("annovera");
+  }
+
+  // If they cannot reliably take a pill on a strict schedule, avoid progestin-only pill
+  if (!canDoStrictDailyPill) {
+    ids.delete("progestinPill");
+    ids.delete("combinedPill");
+  }
+
+  // If they hope to be pregnant soon, avoid methods with delayed return to fertility (shot)
+  if (pregnantSoon) {
+    ids.delete("shot");
+  }
+
+  // If they CAN do strict daily pills and do not strongly prefer non-hormonal methods,
+  // make sure pills are still considered as options.
+  if (canDoStrictDailyPill && !prefersNoHormones) {
+    ids.add("combinedPill");
+    ids.add("progestinPill");
+  }
+
+  return ids;
+})();
 
   return (
     <div className="app-root">

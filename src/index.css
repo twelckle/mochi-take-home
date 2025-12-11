@@ -402,3 +402,14 @@ body {
 .border-primary {
   border-color: #020144 !important;
 }
+
+/* Full-width details row under the selected method */
+.results-details-row {
+  grid-column: 1 / -1;
+  /* Span entire grid width of the results grid */
+  background-color: #d4d4d4;
+  /* Darker grey */
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  margin-top: 0.75rem;
+}
