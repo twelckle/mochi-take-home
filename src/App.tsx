@@ -425,8 +425,6 @@ interface QuestionScreenProps {
 
 function QuestionScreen({
   question,
-  index,
-  total,
   onYesNo,
   onNumberSubmit
 }: QuestionScreenProps) {
