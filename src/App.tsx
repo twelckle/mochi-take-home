@@ -168,7 +168,7 @@ const METHODS: Method[] = [
     ],
     cons: [
       "Requires very strict daily timing for effectiveness",
-      "Slightly lower typical-use efficacy compared to the combination pill",
+      "More sensitive to timing errors, which may reduce real-world effectiveness",
       "Not recommended for patients with a history of breast cancer"
     ],
     shouldAvoid: [
