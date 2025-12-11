@@ -574,7 +574,7 @@ interface IntroProps {
 function IntroScreen({ onStart }: IntroProps) {
   return (
     <div className="step step-intro" style={{ textAlign: "center" }}>
-      <h1>Find the birth control that fits your lifestyle</h1>
+      <h1>Find the birth control that fits you</h1>
       <p>
         Answer a few quick questions to see which options might be a better fit
         for you and your lifestyle.
