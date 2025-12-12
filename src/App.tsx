@@ -112,7 +112,7 @@ type Answers = {
 const METHODS: Method[] = [
   {
     id: "combinedPill",
-    name: "Pill (Combined Oral Contraceptives (COC))",
+    name: "Pill (Combined Oral Contraceptives)",
     type: "Estrogen + Progestin",
     tagline: "Daily",
     notes: "Must be taken daily at a consistent time.",
@@ -315,7 +315,7 @@ const METHODS: Method[] = [
   },
   {
     id: "shot",
-    name: "Birth Control Shot (Depo-subQ Provera 104)",
+    name: "Birth Control Shot (Depo-subQ Provera)",
     type: "Progestin",
     tagline: "12 weeks / 3 months",
     notes: "",
